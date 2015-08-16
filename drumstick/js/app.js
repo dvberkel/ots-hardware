@@ -30,37 +30,24 @@ window.addEventListener('DOMContentLoaded', function() {
     var visualizer = new drumstick.Visualizer(canvas);
     window.addEventListener('devicemotion', visualizer.update.bind(visualizer));
     
-    var colorBackground = function(delay){
-      var lastTimestamp = (new Date()).getTime();
-      return function(){
-        var timestamp = (new Date()).getTime();
-        if ((timestamp - lastTimestamp) > delay) {
-          document.body.classList.add('hit');
-          lastTimestamp = timestamp;
-          setTimeout(function(){
-            document.body.classList.remove('hit');
-          }, 200);
-        }
-      }
-    };
+    var colorBackground = drumstick.onceInAWhile(function(){
+      document.body.classList.add('hit');
+      setTimeout(function(){
+        document.body.classList.remove('hit');
+      }, 200);
+    });
     window.addEventListener('devicemotion', drumstick.whenHitDo(colorBackground(500), { max: 12.0 }));
 
     var audioContext = new window.AudioContext();
-    var playSound = function(delay){
-      var lastTimestamp = (new Date()).getTime();
-      return function(){
-        var timestamp = (new Date()).getTime();
-        if ((timestamp - lastTimestamp) > delay) {
-          var oscillator = window.oscillator = audioContext.createOscillator();
-          oscillator.frequency.value = 440;
-          oscillator.connect(audioContext.destination);
-          oscillator.start(0);
-          setTimeout(function(){
-            oscillator.stop();
-          }, 200);
-        }
-      }
-    };
+    var playSound = drumstick.onceInAWhile(function(){
+      var oscillator = window.oscillator = audioContext.createOscillator();
+      oscillator.frequency.value = 440;
+      oscillator.connect(audioContext.destination);
+      oscillator.start(0);
+      setTimeout(function(){
+        oscillator.stop();
+      }, 200);      
+    });
     window.addEventListener('devicemotion', drumstick.whenHitDo(playSound(500), { max: 12.0 }));
     
   }
