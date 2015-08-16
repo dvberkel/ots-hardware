@@ -21,7 +21,6 @@
   
   $.whenHitDo = function(callback, options) {
     options = extend(options || {}, { 'max': 12.0 });
-    console.log(options);
     return function(event){
       var acceleration = event.accelerationIncludingGravity;
       if (norm(acceleration) >= options.max) {
