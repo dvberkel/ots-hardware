@@ -29,6 +29,21 @@ window.addEventListener('DOMContentLoaded', function() {
     canvas.width = canvas.height;
     var visualizer = new drumstick.Visualizer(canvas);
     window.addEventListener('devicemotion', visualizer.update.bind(visualizer));
+    
+    var colorBackground = function(delay){
+      var lastTimestamp = (new Date()).getTime();
+      return function(){
+        var timestamp = (new Date()).getTime();
+        if ((timestamp - lastTimestamp) > delay) {
+          document.body.classList.add('hit');
+          lastTimestamp = timestamp;
+          setTimeout(function(){
+            document.body.classList.remove('hit');
+          }, 200);
+        }
+      }
+    };
+    window.addEventListener('devicemotion', drumstick.whenHitDo(colorBackground(500), { max: 12.0 }));
   }
 
 });
