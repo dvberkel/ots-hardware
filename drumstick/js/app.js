@@ -23,7 +23,10 @@ window.addEventListener('DOMContentLoaded', function() {
     // We're using textContent because inserting content from external sources into your page using innerHTML can be dangerous.
     // https://developer.mozilla.org/Web/API/Element.innerHTML#Security_considerations
     message.textContent = translate('message');
-
+    
+    var visuals = document.getElementById('visuals');
+    var canvas = visuals.querySelector('#accelerometer-visual');
+    var visualizer = new drumstick.Visualizer(canvas);
   }
 
 });

@@ -28,6 +28,7 @@
         execute the deferred files.
         Read about defer: https://developer.mozilla.org/Web/HTML/Element/script#attr-defer
         -->
+        <script type="text/javascript" src="js/visualization.js"></script>
         <script type="text/javascript" src="js/app.js" defer></script>
 
         <!--
@@ -43,6 +44,9 @@
             <h1 data-l10n-id="app_title"></h1>
             <p data-l10n-id="app_description"></p>
             <p id="message"></p>
+        </section>
+        <section id='visuals'>
+            <canvas id="accelerometer-visual"/>
         </section>
     </body>
 </html>
