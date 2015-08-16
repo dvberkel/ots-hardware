@@ -26,6 +26,7 @@ window.addEventListener('DOMContentLoaded', function() {
     
     var visuals = document.getElementById('visuals');
     var canvas = visuals.querySelector('#accelerometer-visual');
+    canvas.width = canvas.height;
     var visualizer = new drumstick.Visualizer(canvas);
   }
 
