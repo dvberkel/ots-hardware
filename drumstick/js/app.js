@@ -28,6 +28,7 @@ window.addEventListener('DOMContentLoaded', function() {
     var canvas = visuals.querySelector('#accelerometer-visual');
     canvas.width = canvas.height;
     var visualizer = new drumstick.Visualizer(canvas);
+    window.addEventListener('devicemotion', visualizer.update.bind(visualizer));
   }
 
 });

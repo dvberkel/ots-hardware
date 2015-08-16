@@ -6,7 +6,7 @@
     this.update();
   };
   Visualizer.prototype.update = function(event){
-    acceleration = (event || {}).acceleration || {
+    acceleration = (event || {}).accelerationIncludingGravity || {
       'x': 0,
       'y': 0,
       'z': 0
@@ -22,7 +22,6 @@
     ctx.arc(acceleration.x, acceleration.y, 5, 0, 2*Math.PI);
     ctx.closePath();
     ctx.fill();
-    
   }
   
   
