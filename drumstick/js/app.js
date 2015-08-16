@@ -44,6 +44,25 @@ window.addEventListener('DOMContentLoaded', function() {
       }
     };
     window.addEventListener('devicemotion', drumstick.whenHitDo(colorBackground(500), { max: 12.0 }));
+
+    var audioContext = new window.AudioContext();
+    var playSound = function(delay){
+      var lastTimestamp = (new Date()).getTime();
+      return function(){
+        var timestamp = (new Date()).getTime();
+        if ((timestamp - lastTimestamp) > delay) {
+          var oscillator = window.oscillator = audioContext.createOscillator();
+          oscillator.frequency.value = 440;
+          oscillator.connect(audioContext.destination);
+          oscillator.start(0);
+          setTimeout(function(){
+            oscillator.stop();
+          }, 200);
+        }
+      }
+    };
+    window.addEventListener('devicemotion', drumstick.whenHitDo(playSound(500), { max: 12.0 }));
+    
   }
 
 });
