@@ -48,13 +48,10 @@ window.addEventListener('DOMContentLoaded', function() {
     source.type = 'audio/ogg';
     player.appendChild(source);
 
-//     var playSound = drumstick.onceInAWhile(function(){
-//       source.start();
-//       setTimeout(function(){
-//         source.stop();
-//       }, 200);
-//     });
-//     window.addEventListener('devicemotion', drumstick.whenHitDo(playSound(500), { max: 12.0 }));
+    var playSound = drumstick.onceInAWhile(function(){
+     player.play(); 
+    });
+    window.addEventListener('devicemotion', drumstick.whenHitDo(playSound(500), { max: 12.0 }));
 
   }
 
