@@ -30,13 +30,15 @@ window.addEventListener('DOMContentLoaded', function() {
     var visualizer = new drumstick.Visualizer(canvas);
     window.addEventListener('devicemotion', visualizer.update.bind(visualizer));
 
+    var delay = 200;
+    var threshold = 12.0;
     var colorBackground = drumstick.onceInAWhile(function(){
       document.body.classList.add('hit');
       setTimeout(function(){
         document.body.classList.remove('hit');
       }, 200);
     });
-    window.addEventListener('devicemotion', drumstick.whenHitDo(colorBackground(500), { max: 12.0 }));
+    window.addEventListener('devicemotion', drumstick.whenHitDo(colorBackground(delay), { max: threshold }));
 
     var player = document.getElementById('player');
     player.mozAudioChannel = 'normal';
@@ -44,7 +46,7 @@ window.addEventListener('DOMContentLoaded', function() {
     var playSound = drumstick.onceInAWhile(function(){
       player.play(); 
     });
-    window.addEventListener('devicemotion', drumstick.whenHitDo(playSound(500), { max: 12.0 }));
+    window.addEventListener('devicemotion', drumstick.whenHitDo(playSound(delay), { max: threshold }));
 
   }
 
