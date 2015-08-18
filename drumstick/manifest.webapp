@@ -14,7 +14,11 @@
     "url": "http://example.com"
   },
   "type": "privileged",
-  "permissions": {},
+  "permissions": {
+    "audio-channel-normal" : {
+      "description" : "Needed to play this app's audio content on the normal channel"
+    }
+  },
   "installs_allowed_from": [
     "*"
   ],

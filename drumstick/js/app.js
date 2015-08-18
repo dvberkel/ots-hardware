@@ -23,13 +23,13 @@ window.addEventListener('DOMContentLoaded', function() {
     // We're using textContent because inserting content from external sources into your page using innerHTML can be dangerous.
     // https://developer.mozilla.org/Web/API/Element.innerHTML#Security_considerations
     message.textContent = translate('message');
-    
+
     var visuals = document.getElementById('visuals');
     var canvas = visuals.querySelector('#accelerometer-visual');
     canvas.width = canvas.height;
     var visualizer = new drumstick.Visualizer(canvas);
     window.addEventListener('devicemotion', visualizer.update.bind(visualizer));
-    
+
     var colorBackground = drumstick.onceInAWhile(function(){
       document.body.classList.add('hit');
       setTimeout(function(){
@@ -38,31 +38,24 @@ window.addEventListener('DOMContentLoaded', function() {
     });
     window.addEventListener('devicemotion', drumstick.whenHitDo(colorBackground(500), { max: 12.0 }));
 
-    var audioContext = new window.AudioContext();
-    var source = audioContext.createBufferSource();
-    var request = new XMLHttpRequest();
-    request.open('GET', 'sound/hi-hat.ogg');
-    request.responseType = 'arraybuffer';
-    request.onload = function(){
-      var audioData = request.response;
-      audioContext.decodeAudioData(audioData, function(buffer){
-        source.buffer;
-        source.connect(audioContext.destination);
-        source.loop = true;
-        source.start(0);
-        console.log('playing sound?');
-      }, function(e){ console.log(e); });
-    };
-    request.send();
+    var audioSection = document.getElementById('audio');
+    var player = document.createElement('audio');
+    player.controls = true;
+    player.mozAudioChannel = 'normal';
+    audioSection.appendChild(player);
+    var source = document.createElement('source');
+    source.src = 'sound/hi-hat.ogg';
+    source.type = 'audio/ogg';
+    player.appendChild(source);
 
 //     var playSound = drumstick.onceInAWhile(function(){
 //       source.start();
 //       setTimeout(function(){
 //         source.stop();
-//       }, 200);      
+//       }, 200);
 //     });
 //     window.addEventListener('devicemotion', drumstick.whenHitDo(playSound(500), { max: 12.0 }));
-    
+
   }
 
 });
