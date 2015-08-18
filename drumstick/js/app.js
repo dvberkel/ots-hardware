@@ -38,18 +38,11 @@ window.addEventListener('DOMContentLoaded', function() {
     });
     window.addEventListener('devicemotion', drumstick.whenHitDo(colorBackground(500), { max: 12.0 }));
 
-    var audioSection = document.getElementById('audio');
-    var player = document.createElement('audio');
-    player.controls = true;
+    var player = document.getElementById('player');
     player.mozAudioChannel = 'normal';
-    audioSection.appendChild(player);
-    var source = document.createElement('source');
-    source.src = 'sound/hi-hat.ogg';
-    source.type = 'audio/ogg';
-    player.appendChild(source);
 
     var playSound = drumstick.onceInAWhile(function(){
-     player.play(); 
+      player.play(); 
     });
     window.addEventListener('devicemotion', drumstick.whenHitDo(playSound(500), { max: 12.0 }));
 
