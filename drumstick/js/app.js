@@ -39,16 +39,29 @@ window.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('devicemotion', drumstick.whenHitDo(colorBackground(500), { max: 12.0 }));
 
     var audioContext = new window.AudioContext();
-    var playSound = drumstick.onceInAWhile(function(){
-      var oscillator = window.oscillator = audioContext.createOscillator();
-      oscillator.frequency.value = 440;
-      oscillator.connect(audioContext.destination);
-      oscillator.start(0);
-      setTimeout(function(){
-        oscillator.stop();
-      }, 200);      
-    });
-    window.addEventListener('devicemotion', drumstick.whenHitDo(playSound(500), { max: 12.0 }));
+    var source = audioContext.createBufferSource();
+    var request = new XMLHttpRequest();
+    request.open('GET', 'sound/hi-hat.ogg');
+    request.responseType = 'arraybuffer';
+    request.onload = function(){
+      var audioData = request.response;
+      audioContext.decodeAudioData(audioData, function(buffer){
+        source.buffer;
+        source.connect(audioContext.destination);
+        source.loop = true;
+        source.start(0);
+        console.log('playing sound?');
+      }, function(e){ console.log(e); });
+    };
+    request.send();
+
+//     var playSound = drumstick.onceInAWhile(function(){
+//       source.start();
+//       setTimeout(function(){
+//         source.stop();
+//       }, 200);      
+//     });
+//     window.addEventListener('devicemotion', drumstick.whenHitDo(playSound(500), { max: 12.0 }));
     
   }
 
